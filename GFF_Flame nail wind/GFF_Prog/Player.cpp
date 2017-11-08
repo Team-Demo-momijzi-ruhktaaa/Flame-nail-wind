@@ -1,4 +1,7 @@
-#include "Player.h"
+#include"Player.h"
+#include"DirectInput.h"
+
+
 
 player::player()
 {

@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Direct3D.cpp" />
     <ClCompile Include="DirectInput.cpp" />
+    <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MeshX.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -160,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="Direct3D.h" />
     <ClInclude Include="DirectInput.h" />
+    <ClInclude Include="GameMode.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MeshX.h" />
     <ClInclude Include="Player.h" />

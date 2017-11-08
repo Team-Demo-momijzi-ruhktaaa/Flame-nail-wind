@@ -12,6 +12,7 @@ public:
 
 	player();
 	~player();
+	
 
 	void moveplayer(int x, int y);
 	//void showplayer();

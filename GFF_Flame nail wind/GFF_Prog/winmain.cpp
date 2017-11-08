@@ -6,6 +6,7 @@
 #include"Direct3D.h"
 
 #include"Map.h"
+#include"DirectInput.h"
 
 #include"Sprite.h"
 #include"Texture.h"
@@ -76,6 +77,7 @@ HRESULT MakeWindow
 (
 	HINSTANCE hInstance,
 	HWND &refHWnd,
+	//画面の比率
 	int width = 800,
 	int height = 600
 )
@@ -95,7 +97,7 @@ HRESULT MakeWindow
 	(
 		0,
 		WC_BASIC,
-		_T("コルコール"),
+		_T("たるーーー"),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
@@ -156,25 +158,36 @@ int _stdcall WinMain
 	{
 
 	}
-
+	
 	Map map;
 	map.CleateMap(20, 20);
 
+	//マップの全体の大きさ
 	int mapheight = map.CallMapHeight();
 	int mapwidth = map.CallMapWidth();
 
+	//スプライトの設定
 	Sprite sprite;
 	sprite.SetAlpha(0);
 	sprite.SetSize(map.MAPCIPSIZE, map.MAPCIPSIZE);
 	sprite.SetAngle(0);
 
+	//画像格納変数　また格納
 	Texture wall;
-	wall.Load(_T("block.png"));
+	wall.Load(_T("Texture/block.png"));
 	wall.SetDivide(1, 1);
 
 	Texture fixwall;
-	fixwall.Load(_T("Magic2.png"));
+	fixwall.Load(_T("Texture/Magic2.png"));
 	fixwall.SetDivide(1, 1);
+
+	Texture Stage;
+	Stage.Load(_T("Texture/Stage.png"));
+	Stage.SetDivide(1, 1);
+
+	DirectInput*pDi = DirectInput::GetInstance();
+	pDi->Init(hWnd);
+
 
 	MSG msg = {};
 
@@ -190,18 +203,28 @@ int _stdcall WinMain
 		{
 		}
 
+		
+
+
+
+
+
 		if (SUCCEEDED(d3d.BeginScene()))
 		{
 			d3d.ClearScreen();
+			//描画
+			//マップ自動生成
 			for (int i = 0; i < mapwidth; i++)
 			{
 				for (int j = 0; j < mapheight; j++)
 				{
+					//壁の時描画
 					if (map.CallMap(i, j) == map.WALL)
 					{
 						sprite.SetPos(i*map.MAPCIPSIZE + map.MAPCIPSIZE / 2, j*map.MAPCIPSIZE + map.MAPCIPSIZE / 2);
 						sprite.Draw(wall);
 					}
+					//壊せない壁の描画
 					if (map.CallMap(i, j) == map.FIXWALL)
 					{
 						sprite.SetPos(i*map.MAPCIPSIZE + map.MAPCIPSIZE / 2, j*map.MAPCIPSIZE + map.MAPCIPSIZE / 2);
