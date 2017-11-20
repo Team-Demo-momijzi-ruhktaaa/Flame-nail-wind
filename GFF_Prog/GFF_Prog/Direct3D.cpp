@@ -141,11 +141,18 @@ void Direct3D::SetRenderState(RENDERSTATE state)
 		break;
 	case RENDER_ALPHABLEND:
 
-		pDevice3D->SetRenderState(D3DRS_ALPHATESTENABLE, false);
-		pDevice3D->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
+		pDevice3D->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+		pDevice3D->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 
 		pDevice3D->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 		pDevice3D->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+
+		pDevice3D->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		pDevice3D->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+		pDevice3D->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		pDevice3D->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+		pDevice3D->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+		pDevice3D->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 
 		break;
 	case RENDER_MESH_X:
@@ -255,8 +262,8 @@ void Direct3D::DrawSprite(Sprite& sprite, Texture& tex)
 	SpriteVertex vertex[4] =
 	{
 		{D3DXVECTOR3(width / 2,-height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC),(u + 1) / du,v / dv},
-		{D3DXVECTOR3(width / 2,height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC),(u + 1) / du,(v + 1) / du},
-		{D3DXVECTOR3(-width / 2,-height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC,u / du,v / dv)},
+		{D3DXVECTOR3(width / 2,height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC),(u + 1) / du,(v + 1) / dv},
+		{D3DXVECTOR3(-width / 2,-height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC),u / du,v / dv},
 		{D3DXVECTOR3(-width / 2,height / 2,0),1.0f,D3DCOLOR_RGBA(255,255,255,alphaC),u / du,(v + 1) / dv},
 	};
 

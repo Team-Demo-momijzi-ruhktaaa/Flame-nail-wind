@@ -9,6 +9,7 @@ class Sprite
 	friend class Direct3D;
 
 private:
+
 	D3DXVECTOR2 pos;
 	int width;
 	int height;
